@@ -1,0 +1,17 @@
+.DS_Store
+.Rhistory
+.Rdata
+.Rapp.history
+.Rproj.user
+.dropbox
+scratch.R
+inst/marketing/ideas.md
+inst/marketing/.Rhistory
+inst/marketing/.Rapp.history
+inst/marketing/.Rproj.user
+inst/marketing/radiant_win.bat
+inst/marketing/update_win.bat
+inst/marketing/data/data_rady/
+test/
+launchers/
+
