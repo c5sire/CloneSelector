@@ -44,7 +44,7 @@ To get the app click the 'Download ZIP' button and unzip the file to, for exampl
 
 ### License
 
-The Radiant package is licensed under the [AGPLv3](http://www.tldrlegal.com/l/AGPL3). The help files are licensed under the creative commons attribution non-commercial license [CC-NC-SA](http://www.tldrlegal.com/license/creative-commons-attribution-noncommercial-sharealike-(cc-nc-sa)). 
+The Radiant package is licensed under the [AGPLv3](http://www.tldrlegal.com/l/AGPL3). The help files are licensed under the creative commons attribution non-commercial license [CC-NC-SA](http://creativecommons.org/licenses/by-nc-sa/4.0/). 
 
 As a summary, the AGPLv3 license requires, attribution, include copyright and license in copies of the software, state changes if you modify the code, and disclose all source code. Details are in the COPYING file.
 
