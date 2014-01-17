@@ -10,11 +10,11 @@ Interactive business analytics using [R](http://www.r-project.org/) and [Shiny](
 - Testing
 - etc. etc.
 
-### Install the marketing analytics app to run locally
+### Install 
 
 - Required: [R](http://cran.rstudio.com/), version 3.0.2 or later
 - Required: [Shiny](http://www.rstudio.com/shiny/), version 0.8.0.99 or later
-- Required: A modern browser (e.g., Chrome, Firefox, or Safari). Internet Explorer is not supported.
+- Required: A modern browser (e.g., Chrome or Safari)
 - Suggested: [Rstudio](http://www.rstudio.com/ide/download/)
 
 Currently Radiant requires the development version of Shiny. On Windows you will need [Rtools](http://cran.r-project.org/bin/windows/Rtools/). On Mac, make sure you have XCode (free, available in the app store) and the "Command Line Tools for Xcode" (Xcode > Preferences > Downloads).
