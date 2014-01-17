@@ -13,10 +13,22 @@ Interactive business analytics using [R](http://www.r-project.org/) and [Shiny](
 ### Install the marketing analytics app to run locally
 
 - Required: [R](http://cran.rstudio.com/), version 3.0.2 or later
-- Required: [Shiny](http://www.rstudio.com/shiny/), version 0.9.0 or later
+- Required: [Shiny](http://www.rstudio.com/shiny/), version 0.8.0.99 or later
 - Required: A modern browser (e.g., Chrome, Firefox, or Safari). Internet Explorer is not supported.
 - Suggested: [Rstudio](http://www.rstudio.com/ide/download/)
 
+Currently Radiant requires the development version of Shiny. To install it follow the steps below:
+
+	install.packages('devtools')
+	require(devtools)
+	install_github('shiny','rstudio')
+
+To install the Marketing analytics app in Radiant:
+
+	install_github('radiant','mostly-harmless')
+	runApp(system.file("marketing", package="radiant"))
+
+<!-- 
 To get the app click the 'Download ZIP' button and unzip the file to, for example, your Desktop. When you start the app for the first time a number of required packages will be installed. To start the app, copy and paste the command below into the R(studio) terminal (assuming you unzipped to your Desktop):
 
 	# on windows
@@ -24,6 +36,7 @@ To get the app click the 'Download ZIP' button and unzip the file to, for exampl
 
  	# on mac
 	shiny::runApp('~/Desktop/radiant-master/inst/marketing/')
+ -->
 
 ### License
 
@@ -33,4 +46,3 @@ The Radiant package is licensed under the [AGPLv3](http://www.tldrlegal.com/l/AG
 - NOTICE - Copyright notices for additional included software
 
 As a summary, the AGPLv3 license requires, attribution, include copyright and license in copies of the software, state changes if you modify the code, and disclose all source code. Details are in the COPYING file.
-

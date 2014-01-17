@@ -34,8 +34,8 @@ opts_knit$set(progress = FALSE)
 
 output$report <- renderUI({
   div(class="row-fluid", div(class="span6",
-    aceEditor("rmd_report", mode="markdown", value=state_init("rmd_report",rmd_example),
-      vimKeyBinding=vimKeyBinding),
+    aceEditor("rmd_report", mode="markdown", value=state_init("rmd_report",rmd_example)),
+      # vimKeyBinding=vimKeyBinding),
     actionButton("evalRmd", "Update"),
     downloadButton('saveHTML', 'Save HTML'), 
     downloadButton('saveRmd', 'Save Rmd'), tags$br(), tags$br(),
