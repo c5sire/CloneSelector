@@ -50,4 +50,6 @@ As a summary, the AGPLv3 license requires, attribution, include copyright and li
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
 
+If you are interested in using Radiant please email at vnijs at rady.ucsd.edu
+
 &copy; Vincent Nijs (2014)
