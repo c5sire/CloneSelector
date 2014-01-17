@@ -17,3 +17,5 @@ Another plots that can be useful to determine the number of segments to create i
 ![hcculs shopping - plots - scree](figures/hcclus_toothpaste_plots_scree.png)
 
 Reading the plot from right-to-left we see that within segment heterogeneity increases sharply when we move from 3 to 2 segments. To avoid creating a heterogeneous segment we, again, choose 3 segments. Now that we have decided the appropriate number of segments to extract we can use K-means clustering to calculate the final cluster solution.
+
+&copy; Vincent Nijs (2014) <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>

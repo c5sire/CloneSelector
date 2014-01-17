@@ -15,3 +15,5 @@ Because the p-value is smaller than the conventional level of significance (i.e.
 In addition to the numerical output provided in the Summary tab we can also evaluate the hypothesis visually (see Plots tab). The settings in the side-panel are the same as before. The plot shows a histogram of the store sales data. The solid black line indicates the sample mean and the dashed red line the comparison value (i.e., unit sales under the null-hypothesis). The dashed black lines represent the confidence interval around the sample mean. Because the dashed red line does __not__ fall within the confidence interval (1897 to Inf.) we reject the null-hypothesis in favor of the alternative.
 
 ![Single mean - plots](figures/SingleMeanPlots.png)
+
+&copy; Vincent Nijs (2014) <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>

@@ -41,3 +41,5 @@ As you can see the required sample size is equal to 217, i.e., we need 217 valid
 In the screen shot above we clicked 'Yes' to apply the population correction and then entered 5000 as the population size. The required number of valid responses drops from 217 to 208.
 
 <a href="http://bphc.hrsa.gov/policiesregulations/performancemeasures/patientsurvey/calculating.html" target="_blank">Source</a>
+
+&copy; Vincent Nijs (2014) <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>

@@ -5,6 +5,7 @@
 .Rproj.user
 .dropbox
 scratch.R
+dev_scratch.R
 inst/marketing/ideas.md
 inst/marketing/.Rhistory
 inst/marketing/.Rapp.history

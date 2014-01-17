@@ -10,7 +10,7 @@ License: AGPLv3 and CC-NC
 Depends: 
 	R (>= 3.0.2)
 Imports: 
-	shiny (>= 0.9), 
+	shiny,
 	knitr,
 	R.utils,
 	markdown,

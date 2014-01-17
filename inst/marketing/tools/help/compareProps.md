@@ -33,3 +33,5 @@ It seems that men and women have different attitudes towards Facebook. How about
 ![Compare proportions - moretime](figures/CompareProportionsMoretime.png)
 
 Because the p-value is greater than the conventional level of significance (i.e. 0.05) we cannot reject the null hypothesis based on the available sample. The data suggest that the proportions of men and women who spent more time on Facebook last year seem to be similar.
+
+&copy; Vincent Nijs (2014) <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
