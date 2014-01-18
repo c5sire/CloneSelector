@@ -28,7 +28,7 @@ sink("../tests/regression_no_runApp.txt")
 sink()
 
 png('../tests/regression_no_runApp.png')
-plots_regression(result)
+  plots_regression(result)
 dev.off()
 
 # works!
@@ -93,6 +93,16 @@ server <- function(session, input, output) {
   R.utils::sourceDirectory('tools/app', recursive = TRUE)
 
   output$test_regression <- renderText({
+
+    if(is.null(input$reg_standardize))
+      tags$script("window.location.reload();")
+
+    if(is.null(input$reg_var1))
+      tags$script("window.location.reload();")
+
+    if(is.null(input$reg_var2))
+      tags$script("window.location.reload();")
+
     print(input$reg_var1)
     print(input$reg_var2)
     print(input$reg_standardize)
@@ -102,7 +112,9 @@ server <- function(session, input, output) {
     sink("../tests/regression_reactive.txt")
       summary_regression(result)
     sink()
-    stopApp()
+    # if(result != "")
+    if(!is.character(result))
+      stopApp()
   })
 }
 
@@ -111,6 +123,8 @@ runApp(list(ui = ui, server = server))
 res1 <- paste0(readLines("../tests/regression_reactive.txt"), collapse = "\n")
 res2 <- paste0(readLines("../tests/regression_correct.txt"), collapse = "\n")
 all.equal(res1,res2)
+state_list
+values
 
 ######################################
 # calling reactives directly doesn't work
@@ -187,6 +201,16 @@ server <- function(session, input, output) {
   R.utils::sourceDirectory('tools/app', recursive = TRUE)
 
   output$test_regression <- renderText({
+
+    if(is.null(input$reg_standardize))
+      tags$script("window.location.reload();")
+
+    if(is.null(input$reg_var1))
+      tags$script("window.location.reload();")
+
+    if(is.null(input$reg_var2))
+      tags$script("window.location.reload();")
+      
     print(input$reg_var1)
     print(input$reg_var2)
     print(input$reg_standardize)
@@ -196,7 +220,9 @@ server <- function(session, input, output) {
     sink("../tests/regression_reactive.txt")
       summary_regression(result)
     sink()
-    stopApp()
+
+    if(!is.character(result))
+      stopApp()
   })
 }
 
