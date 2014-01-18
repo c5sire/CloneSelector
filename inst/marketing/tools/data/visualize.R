@@ -12,7 +12,7 @@ output$uiVizvars1 <- renderUI({
 })
 
 output$uiVizvars2 <- renderUI({
-	# if(!has.value(input$vizvars1)) return() 	# can't have an XY plot without an X
+	# if(is.null(input$vizvars1)) return() 	# can't have an XY plot without an X
 	# if(is.null(inChecker(input$vizvars1))) return()
 	vars <- varnames()
 	selectInput(inputId = "vizvars2", label = "Y-variable", choices = c("None" = "", vars), 
@@ -20,7 +20,7 @@ output$uiVizvars2 <- renderUI({
 })
 
 output$uiViz_color <- renderUI({
-	if(!has.value(input$vizvars2)) return() 	# can't have an XY plot without an X
+	if(is.null(input$vizvars2)) return() 	# can't have an XY plot without an X
 	# if(length(input$vizvars2) > 1) return()
 	vars <- c("None" = "", varnames())
 	selectInput("viz_color", "Color", vars,
@@ -86,7 +86,7 @@ viz_plot_width <- reactive({
 
 viz_plot_height <- reactive({
 	# if(is.null(input$viz_plot_height)) return(values$plotHeight)
-	if(!has.value(input$viz_plot_height)) return(values$plotHeight)
+	if(is.null(input$viz_plot_height)) return(values$plotHeight)
 	if(input$viz_multiple == "multiple") { 
 		nrPlots <- length(input$vizvars1)
 		ifelse(nrPlots > 1, return((input$viz_plot_height/2) * ceiling(nrPlots / 2)), return(input$viz_plot_height))
@@ -99,13 +99,13 @@ output$visualize <- renderPlot({
 
 	if(isolate(input$datatabs) != 'Visualize') return(invisible())
 
- 	if(!has.value(input$viz_facet_col)) return()
+ 	if(is.null(input$viz_facet_col)) return()
 	# if(input$vizvars1 == "")
-	if(!has.value(input$vizvars1) || input$vizvars1 == "")
+	if(is.null(input$vizvars1) || input$vizvars1 == "")
 		return(plot(x = 1, type = 'n', main="Please select variables from the dropdown menus to create a plot.", axes = FALSE, xlab = "", ylab = ""))
 
 	plots <- .visualize()
-	if(has.value(plots)) return(plots)
+	if(!is.null(plots)) return(plots)
 
 }, width = viz_plot_width, height = viz_plot_height)
 
@@ -150,7 +150,7 @@ visualize <- function(datasets, vizvars1, vizvars2, viz_select, viz_multiple, vi
 		for(i in vizvars1) {
 			plots[[i]] <- ggplot(dat, aes_string(x=i)) + geom_histogram()
 			if(viz_multiple == "single") {
-				# if(!has.value(viz_facet_col) || !has.value(viz_facet_row)) return()
+				# if(is.null(viz_facet_col) || is.null(viz_facet_row)) return()
 			  facets <- paste(viz_facet_row, '~', viz_facet_col)
 			  if (facets != '. ~ .')
 				  plots[[i]] <- plots[[i]] + facet_grid(facets)

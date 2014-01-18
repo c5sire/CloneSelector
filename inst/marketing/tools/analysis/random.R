@@ -53,7 +53,7 @@ output$random <- renderUI({
 	# . used to indicate this is an 'internal' function
 
 	ret_text <- "This analysis requires a variable of type character.\nEntries should be unique (i.e., no duplicates).\nPlease select another dataset."
-	if(!has.value(input$rnd_var)) return(ret_text)
+	if(is.null(input$rnd_var)) return(ret_text)
 	# if(is.null(inChecker(c(input$rnd_var)))) return(ret_text)
 
 	rvar <- getdata()$rnd_var

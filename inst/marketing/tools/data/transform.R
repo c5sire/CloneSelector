@@ -123,12 +123,12 @@ transform_main <- reactive({
 	# if(input$datatabs != 'Transform') return()
 	# if(is.null(input$datasets)) return()
 	# if(is.null(input$tr_changeType) || input$tr_changeType == '') return()
-	if(!has.value(input$tr_changeType)) return()
+	if(is.null(input$tr_changeType)) return()
 
 	dat <- getdata()
 
 	if(input$tr_changeType == "") {
-		if(has.value(input$tr_columns)) {
+		if(!is.null(input$tr_columns)) {
 			# if(!all(input$tr_columns %in% colnames(dat))) return()
 			dat <- data.frame(dat[, input$tr_columns, drop = FALSE])
 		} else {
@@ -147,7 +147,7 @@ transform_main <- reactive({
   }
 
 	if(input$tr_changeType == 'na.remove') {
-		if(has.value(input$tr_columns)) {
+		if(!is.null(input$tr_columns)) {
 			return(dat[complete.cases(dat[,input$tr_columns]),])
 		} else {
 	 	  return(na.omit( dat ))
@@ -169,7 +169,7 @@ transform_main <- reactive({
   
 	# if(input$tr_changeType == "") {
 	# if(!is.null(input$tr_columns)) {
-	if(has.value(input$tr_columns)) {
+	if(!is.null(input$tr_columns)) {
 
 		if(!all(input$tr_columns %in% colnames(dat))) return()
 		dat <- data.frame(dat[, input$tr_columns, drop = FALSE])

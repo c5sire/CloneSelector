@@ -45,7 +45,7 @@ output$hierCluster <- renderUI({
 .hierCluster <- reactive({
 
 	# if(is.null(input$hc_vars)) return("Please select one or more variables of type numeric or integer.")
-	if(!has.value(input$hc_vars)) return("Please select one or more variables of type numeric or integer.")
+	if(is.null(input$hc_vars)) return("Please select one or more variables of type numeric or integer.")
 	ret_text <- "This analysis requires variables of type numeric or integer.\nPlease select another dataset."
 	# if(is.null(inChecker(c(input$hc_vars)))) return(ret_text)
 
@@ -186,7 +186,7 @@ output$kmeansCluster <- renderUI({
 
 .kmeansCluster <- reactive({
 
-	if(!has.value(input$km_vars)) return("Please select one or more variables of type numeric or integer.")
+	if(is.null(input$km_vars)) return("Please select one or more variables of type numeric or integer.")
 	ret_text <- "This analysis requires variables of type numeric or integer.\nPlease select another dataset."
 	# if(is.null(inChecker(c(input$km_vars)))) return(ret_text)
 

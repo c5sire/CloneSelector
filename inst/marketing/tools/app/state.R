@@ -58,7 +58,7 @@ output$state <- renderUI({
 
 observe({
   inFile <- input$uploadState
-  if(has.value(inFile)) {
+  if(!is.null(inFile)) {
     isolate({
       load(inFile$datapath)
       if(exists("RadiantValues")) values <<- do.call(reactiveValues, RadiantValues)
@@ -69,7 +69,7 @@ observe({
 
 output$refreshOnUpload <- renderUI({
   inFile <- input$uploadState
-  if(has.value(inFile)) {
+  if(!is.null(inFile)) {
     # Joe Cheng: https://groups.google.com/forum/#!topic/shiny-discuss/Olr8m0JwMTo
     tags$script("window.location.reload();")
 

@@ -11,7 +11,7 @@ output$uiMergeDataset <- renderUI({
 
 output$uiMerge_vars <- renderUI({
 
-  if(!has.value(input$mergeDataset)) return()
+  if(is.null(input$mergeDataset)) return()
   vars1 <- varnames()
   vars2 <- colnames(values[[input$mergeDataset]])
   vars <- intersect(vars1, vars2)
@@ -83,7 +83,7 @@ observe({
 
 output$mergePossible <- renderText({
 
-  if(!has.value(input$merge_vars)) 
+  if(is.null(input$merge_vars)) 
     return("<h4>No matching variables found</h4><br>")
   if(sum(input$merge_vars %in% colnames(values[[input$mergeDataset]])) == 0)
     return("<h4>No matching variables found</h4><br>")
@@ -93,7 +93,7 @@ output$mergePossible <- renderText({
 
 output$mergeData1 <- renderText({
   # if(isolate(input$datatabs) != 'Merge') return(invisible())
-  if(!has.value(input$mergeDataset)) return()
+  if(is.null(input$mergeDataset)) return()
   dat <- getdata()
 
   # Show only the first 5 rows
@@ -109,7 +109,7 @@ output$mergeData1 <- renderText({
 
 output$mergeData2 <- renderText({
   # if(isolate(input$nav_radiant) != 'Merge') return(invisible())
-  if(!has.value(input$mergeDataset)) return()
+  if(is.null(input$mergeDataset)) return()
   dat <- values[[input$mergeDataset]]
 
   # Show only the first 5 rows

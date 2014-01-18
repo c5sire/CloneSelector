@@ -11,7 +11,7 @@ output$uiPmap_brand <- renderUI({
 })
 
 output$uiPmap_attr <- renderUI({
-  if(!has.value(input$pmap_brand)) return()
+  if(is.null(input$pmap_brand)) return()
   # if(is.null(input$pmap_brand) || is.null(inChecker(c(input$pmap_brand)))) return()
 
  	isNum <- "numeric" == getdata_class() | "integer" == getdata_class()
@@ -22,7 +22,7 @@ output$uiPmap_attr <- renderUI({
 })
 
 output$uiPmap_pref <- renderUI({
-  if(!has.value(input$pmap_attr)) return()
+  if(is.null(input$pmap_attr)) return()
   # if(is.null(inChecker(c(input$pmap_pref)))) return()
 
  	isNum <- "numeric" == getdata_class() | "integer" == getdata_class()
@@ -85,7 +85,7 @@ output$pmap <- renderUI({
 .pmap <- reactive({
 
 	ret_text <- "This analysis requires a brand variable of type character\nand multiple attribute variables of type numeric or integer.\nPlease select another dataset."
-	if(!has.value(input$pmap_brand)) return(ret_text)
+	if(is.null(input$pmap_brand)) return(ret_text)
 	# if(is.null(inChecker(c(input$pmap_brand, input$pmap_attr)))) return(ret_text)
 	if(length(input$pmap_attr) < 2) return("Please select two or more attribute variables")
 
@@ -127,7 +127,7 @@ pmap <- function(datasets, pmap_brand, pmap_attr, pmap_pref, pmap_dim_number, pm
 	rownames(scores) <- brands
 
 	pc <- std.pc <- 0
-	if(has.value(pmap_pref)) {
+	if(!is.null(pmap_pref)) {
 		pc <- data.frame(cor(dat[,pmap_pref],scores))
 		pc$communalities <- rowSums(pc^2)
 		rownames(pc) <- pmap_pref
@@ -165,7 +165,7 @@ summary_pmap <- function(result = .pmap()) {
 	cat("\nAttribute - Factor loadings:\n")
 	print(f.res$loadings, cutoff = out$pmap_cutoff, digits = 2)
 	
-	if(has.value(out$pmap_pref)) {
+	if(!is.null(out$pmap_pref)) {
 		cat("\nPreference correlations:\n")
 		print(round(out$pref_cor,2), digits = 2)
 	}

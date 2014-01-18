@@ -92,7 +92,7 @@ output$uiCm_var1 <- renderUI({
 
 output$uiCm_var2 <- renderUI({
 
-  if(!has.value(input$cm_var1)) return()
+  if(is.null(input$cm_var1)) return()
 	isNum <- "numeric" == getdata_class() | "integer" == getdata_class()
   vars <- varnames()[isNum]
   if(length(vars) == 0) return()
@@ -133,8 +133,8 @@ output$compareMeans <- renderUI({
 .compareMeans <- reactive({
 
 	ret_text <- "This analysis requires variables of type factor, numeric or interval.\nPlease select another dataset."
-	if(!has.value(input$cm_var1)) return(ret_text)
-	if(!has.value(input$cm_var2)) return("Please select a numeric or interval variable")
+	if(is.null(input$cm_var1)) return(ret_text)
+	if(is.null(input$cm_var2)) return("Please select a numeric or interval variable")
 	# if(is.null(inChecker(c(input$cm_var1, input$cm_var2)))) return(ret_text)
 
 	compareMeans(input$datasets, input$cm_var1, input$cm_var2, input$cm_alternative, input$cm_jitter)
@@ -255,7 +255,7 @@ output$uiCt_var1 <- renderUI({
 })
 
 output$uiCt_var2 <- renderUI({
-	if(!has.value(input$ct_var1)) return()
+	if(is.null(input$ct_var1)) return()
 	isFct <- "factor" == getdata_class()
   vars <- varnames()[isFct]
 	# if(!input$ct_var1 %in% vars) return()

@@ -17,10 +17,6 @@ inChecker <- function(tocheck) {
 	ifelse(sum(tocheck %in% varnames()) < length(tocheck), return(NULL), return('OK'))
 }
 
-# check if a variable is either NULL or NA
-has.value <- function(x) ifelse(is.null(x),FALSE,TRUE)
-# has.value <- function(x) ifelse(is.null(x) || is.na(x),FALSE,TRUE)
-
 getdata <- reactive({
 	values[[input$datasets]]
 })

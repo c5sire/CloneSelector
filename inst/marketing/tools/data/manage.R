@@ -54,7 +54,7 @@ observe({
 })
 
 observe({
-  if(!has.value(input$data_rename)) return()
+  if(is.null(input$data_rename)) return()
   if(is.null(input$renameButton) || input$renameButton == 0) return()
 
   isolate({

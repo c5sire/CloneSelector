@@ -18,7 +18,7 @@ output$conjointProfiles <- renderUI({
 
 .conjointProfiles <- reactive({
 	ret_text <- "Please load a file with attribute information."
-	if(!has.value(input$uploadAttr)) return(ret_text)
+	if(is.null(input$uploadAttr)) return(ret_text)
   if(is.null(values[['ca_attr']])) return(ret_text) 
 
 	conjointProfiles(values[['ca_attr']])
@@ -124,7 +124,7 @@ conjointFFD <-function(dat,trial) { #{{{
 
 observe({
 	inFile <- input$uploadAttr
-  if(has.value(inFile)) {
+  if(!is.null(inFile)) {
     isolate({
       values[['ca_attr']] <- readLines(inFile$datapath)
     })
@@ -153,7 +153,7 @@ output$uiCa_var1 <- renderUI({
 
 output$uiCa_var2 <- renderUI({
 
-  if(!has.value(input$ca_var1)) return()
+  if(is.null(input$ca_var1)) return()
 	isFct <- "factor" == getdata_class()
  	vars <- varnames()[isFct]
   if(length(vars) == 0) return()

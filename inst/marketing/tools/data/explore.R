@@ -28,7 +28,7 @@ nmissing <<- function(x) sum(is.na(x))
 expl_functions <- list("Mean" = "mean", "Std. dev" = "sd", "N" = "length", "# missing" = "nmissing", "Max" = "max", "Min" = "min", "Median" = "median")
 
 output$uiExpl_function <- renderUI({
-  if(!has.value(input$expl_byvar)) return()
+  if(is.null(input$expl_byvar)) return()
   selectInput(inputId = "expl_function", label = "Apply function(s):", choices = expl_functions, 
   	# selected = state_multvar("expl_byvar",vars), multiple = TRUE)
   	selected = state_init_list("expl_function","Mean", expl_functions), multiple = TRUE)
@@ -65,7 +65,7 @@ observe({
 })
 
 .explore <- reactive({
-	if(!has.value(input$expl_columns)) return()
+	if(is.null(input$expl_columns)) return()
 	# if(is.null(inChecker(input$expl_columns))) return()
 	explore(input$datasets, input$expl_columns, input$expl_byvar, input$expl_function, input$expl_select)
 })
@@ -84,7 +84,7 @@ explore <- function(datasets, expl_columns, expl_byvar, expl_function, expl_sele
     }
   }
 
-	if(!has.value(expl_byvar)) {
+	if(is.null(expl_byvar)) {
 		dat <- dat[,expl_columns, drop = FALSE]
 		isNum <- sapply(dat, is.numeric)
 		if(sum(isNum) > 0) {
@@ -138,7 +138,7 @@ output$expl_summary <- renderPrint({
 
 	if(isolate(input$datatabs) != 'Explore') return(invisible())
 
-	if(has.value(input$expl_show_tab) && !input$expl_show_tab) return(invisible())
+	if(!is.null(input$expl_show_tab) && !input$expl_show_tab) return(invisible())
 	.summary_explore()
 })
 
@@ -178,7 +178,7 @@ output$expl_plots <- renderPlot({
 
 	if(isolate(input$datatabs) != 'Explore') return(invisible())
 
-	if(!input$expl_show_viz || !has.value(input$expl_byvar)) return()
+	if(!input$expl_show_viz || is.null(input$expl_byvar)) return()
 	.plots_explore()
 }, width = expl_plot_width, height = expl_plot_height)
 

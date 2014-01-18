@@ -27,7 +27,7 @@ output$preFactor <- renderUI({
 
 .preFactor <- reactive({
 	# for main analysis
-	if(!has.value(input$preFactor_vars) || length(input$preFactor_vars) < 2) return("Please select two or more numeric variables")
+	if(is.null(input$preFactor_vars) || length(input$preFactor_vars) < 2) return("Please select two or more numeric variables")
 	preFactor(input$datasets, input$preFactor_vars)
 })
 
