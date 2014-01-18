@@ -170,8 +170,8 @@ summary(reg)
 
 output$rcode <- renderUI({
   div(class="row-fluid", div(class="span6",
-      aceEditor("r_code", mode="r", value=state_init("r_code",r_example),
-        vimKeyBinding=vimKeyBinding),
+      aceEditor("r_code", mode="r", value=state_init("r_code",r_example)),
+        # vimKeyBinding=vimKeyBinding),
       actionButton("rEval", "Run"),
       downloadButton('saveCode', 'Save R-code'), tags$br(), tags$br(),
       fileInput('sourceCode', 'Source R-code', multiple=TRUE),
