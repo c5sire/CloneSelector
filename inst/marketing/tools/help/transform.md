@@ -1,8 +1,29 @@
-Change, create, add, reorder, and remove variables in the data.
+Modify type, change, create, add, reorder, and remove variables in the data.
+
+#### Type
+
+When you select Type from the 'Transformation type' drop-down another drop-down menu is shown that will allow you to change the type or class of one or more variables in your data. For example, to change a variable of type factor or character to a variable of type date. Click the 'Save changes' button to change variable(s) in the data set. A description of the type transformations included in Radiant is provided below.
+
+1. As factor: convert a variable to type factor (i.e., as.factor(x))
+2. As number: convert a variable to type numeric (i.e., as.numeric(x))
+3. As integer: convert a variable to type integer (i.e., as.integer(x))
+4. As character: convert a variable to type character (i.e., as.character(x))
+5. As date (mdy): R will, by default, read dates as factors. Use this function if the dates are ordered as month-day-year
+6. As date (dmy): R will, by default, read dates as factors. Use this function if the dates are ordered as day-month-year
+7. As date (ymd): R will, by default, read dates as factors. Use this function if the dates are ordered as year-month-day
 
 #### Change
 
 When you select Change from the 'Transformation type' drop-down another drop-down menu is shown that will allow you do apply common transformations to one or more variables in your data. For example, to take the (natural) log of a variable select the variable you want to change and choose Log from the 'Apply function' menu. A new variable is created with the prefix 'log.'. Click the 'Save changes' button to add the variable(s) to the data set. A description of the transformation functions included in Radiant is provided below.
+
+1. Log: create a log-transformed version of the selected variable (i.e., log(x))
+2. Square: multiply a variable by itself (i.e. x^2) 
+3. Square-root: take the square-root of a variable (i.e., x^.5)
+4. Center: create a new variable with a mean equal to zero (i.e., x - mean(x))
+5. Standardize: create a new variable with a mean equal to zero and standard deviation equal to 1 (i.e., (x - mean(x)/sd(x)))
+6. Invert: 1/x
+7. Median split: create a new factor with two levels (Above and Below) that splits the variable values at the median
+8. Deciles: create a new factor with 10 levels (deciles) that splits the variable values at the 10th, 20th, ..., 90th percentiles.
 
 #### Create
 
@@ -67,23 +88,5 @@ Choose 'Remove missing' from the 'Transformation type' dropdown to remove missin
 #### Subset
 
 Choose 'Subset' from the 'Transformation type' dropdown to select (or omit) specific sets of rows from the data. You can use > and < signs and even combine filter commands. For example, x > 3 & y == 2 would select only those rows for which the variable x has values larger than 3 __and__ for which y has values equal to 2. Type your filter statement in the Subset box and press enter to see the result on screen. You should see the number of observations in the data summary change (i.e., the value of n changes). Press 'Save changes' to keep only the rows you want in the data. Note that this action cannot be undone. If you want these rows back you will have to reload the data through the Data > Manage page.
-
-#### Transformations available through the Change function
-
-1. Log: create a log-transformed version of the selected variable (i.e., log(x))
-2. Square: multiply a variable by itself (i.e. x^2) 
-3. Square-root: take the square-root of a variable (i.e., x^.5)
-4. Center: create a new variable with a mean equal to zero (i.e., x - mean(x))
-5. Standardize: create a new variable with a mean equal to zero and standard deviation equal to 1 (i.e., (x - mean(x)/sd(x)))
-6. Invert: 1/x
-7. Median split: create a new factor with two levels (Above and Below) that splits the variable values at the median
-8. Deciles: create a new factor with 10 levels (deciles) that splits the variable values at the 10th, 20th, ..., 90th percentiles.
-9. As factor: convert a variable to type factor (i.e., as.factor(x))
-10. As number: convert a variable to type numeric (i.e., as.numeric(x))
-11. As integer: convert a variable to type integer (i.e., as.integer(x))
-12. As character: convert a variable to type character (i.e., as.character(x))
-13. As date (mdy): R will, by default, read dates as characters. Use this function if the dates are ordered as month-day-year
-14. As date (dmy): R will, by default, read dates as characters. Use this function if the dates are ordered as day-month-year
-15. As date (ymd): R will, by default, read dates as characters. Use this function if the dates are ordered as year-month-day
 
 &copy; Vincent Nijs (2014) <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a>
