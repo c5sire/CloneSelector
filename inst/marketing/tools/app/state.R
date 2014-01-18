@@ -9,18 +9,16 @@ state_init <- function(inputvar, init = "") {
   ifelse(is.null(state_list[[inputvar]]), return(init), return(state_list[[inputvar]]))
 }
 
-state_init_list <- function(inputvar, init = "", values = values) {
-  # return the list label/name, not the value because
-  # the input list contains the value, not the labels
-  ifelse(is.null(state_list[[inputvar]]), return(init), return(state_singlevar(inputvar, values)))
+state_init_list <- function(inputvar, init = "", vals) {
+  # return the list label/name, not the value because the input list contains the value, not the labels
+  ifelse(is.null(state_list[[inputvar]]), return(init), return(state_singlevar(inputvar, vals)))
 }
 
-state_init_multvar <- function(inputvar, pre_inputvar, values) {
-  # for factor and cluster use variable selection from the pre-analysis
-  # return the list label/name, not the value because
-  # the input list contains the value, not the labels
-  ifelse(is.null(state_list[[inputvar]]), return(names(values[values %in% pre_inputvar])),
-    return(state_multvar(inputvar, values)))
+state_init_multvar <- function(inputvar, pre_inputvar, vals) {
+  # for factor and cluster use variable selection from the pre-analysis return the list label/name, 
+  # not the value because the input list contains the value, not the labels
+  ifelse(is.null(state_list[[inputvar]]), return(names(vals[vals %in% pre_inputvar])),
+    return(state_multvar(inputvar, vals)))
 }
 
 #######################################
@@ -31,7 +29,6 @@ output$state <- renderUI({
     sidebarPanel(
       wellPanel(
         HTML("<label>Load previous app state:</label>"),
-        # HTML("<a class='btn action-button shiny-bound-input' id='loadState' type='button' href='/'>Load</a>")
         fileInput('uploadState', ''),
         uiOutput("refreshOnUpload")
       ),
@@ -74,8 +71,8 @@ output$refreshOnUpload <- renderUI({
     tags$script("window.location.reload();")
 
     #################################################################################
-    # would be nice if this allowed a return to the state page ... or ... the
-    # used before going to State. The below doesn't work ... yet
+    # todo: return to the state page or the page used before going to State. 
+    # The below doesn't work ... yet
     #################################################################################
     # updateTabsetPanel(session, "nav_radiant", selected = "State") 
   }
@@ -103,35 +100,9 @@ observe({
   unlink(c("www/rmd/cache/","www/rmd/figure"), recursive = TRUE)
   stopApp()   # stop Radiant
   q("no")     # quit R
-  
-  # from Joe Cheng's post at https://groups.google.com/forum/?fromgroups=#!searchin/shiny-discuss/close$20r/shiny-discuss/JptpzKxLuvU/boGBwwI3SjIJ
-  # session$onSessionEnded(function() {
-    # if(!dev_comp) q("no")
-  # })
 })
 
 output$showInput <- renderPrint({
-  # if(input$saveState > 0) cat("Current state saved\n\n")
   cat("State list:\n")
   print(state_list[sort(names(state_list))])
 })
-
-# Loading previous state from a fixed location
-# observe({
-#   if(is.null(input$loadState) || input$loadState == 0) return()
-
-#   # Joe Cheng: https://github.com/rstudio/shiny/issues/331
-#   if(file.exists("state/RadiantValues.rds")) 
-#     values <<- do.call(reactiveValues, readRDS("state/RadiantValues.rds"))
-
-#   if(file.exists("state/RadiantInputs.rds")) 
-#     state_list <<- readRDS("state/RadiantInputs.rds")
-# })
-
-# Saving current state from a fixed location
-# observe({
-#   if(is.null(input$saveState) || input$saveState == 0) return()
-#   # save app state
-#   saveRDS(isolate(reactiveValuesToList(input)), file = "state/RadiantInputs.rds")
-#   saveRDS(isolate(reactiveValuesToList(values)), file = "state/RadiantValues.rds")
-# })
