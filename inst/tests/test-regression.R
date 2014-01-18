@@ -1,6 +1,49 @@
-library(shiny)
+# initial settings
 setwd("~/github/radiant/inst/marketing")
+# install.packages('png')
+libs <- c("shiny", "knitr", "markdown", "shinyAce", "car", "gridExtra", "psych", 
+  "plyr", "reshape2", "vegan", "lubridate", "wordcloud", "AlgDesign", "ggplot2","png")
+suppressWarnings(sapply(libs, require, character.only=TRUE))
+options(digits = 3)
 
+######################################
+# simplest approach without runApp
+######################################
+input <- list()
+output <- list()
+values <- list()
+
+robj <- load("data/data_init/diamonds.rda") 
+df <- get(robj)
+values[["diamonds"]] <- df
+values[["diamonds_descr"]] <- attr(df,'description')
+values$datasetlist <- c("diamonds")
+
+source("tools/analysis/regression.R")
+
+result <- regression("diamonds", "price", c("carat", "clarity"), NULL, NULL, "none", FALSE, FALSE, FALSE, "scatterlist")
+
+sink("../tests/regression_no_runApp.txt")
+  summary_regression(result)
+sink()
+
+png('../tests/regression_no_runApp.png')
+plots_regression(result)
+dev.off()
+
+# works!
+res1 <- paste0(readLines("../tests/regression_no_runApp.txt"), collapse = "\n")
+res2 <- paste0(readLines("../tests/regression_correct.txt"), collapse = "\n")
+all.equal(res1,res2)
+
+res1 <- readPNG("../tests/regression_no_runApp.png")
+res2 <- readPNG("../tests/regression_correct.png")
+all.equal(res1,res2)
+
+
+######################################
+# using the runApp(list()) structure
+######################################
 ui <- basicPage(
   verbatimTextOutput("test_regression")
 )
@@ -15,7 +58,7 @@ server <- function(session, input, output) {
 
   output$test_regression <- renderText({
     result <- regression("diamonds", "price", c("carat", "clarity"), NULL, NULL, "none", FALSE, FALSE, FALSE, "")
-    sink("../tests/regression.txt")
+    sink("../tests/regression_runApp.txt")
       summary_regression(result)
     sink()
     stopApp()
@@ -24,11 +67,13 @@ server <- function(session, input, output) {
 
 # works!
 runApp(list(ui = ui, server = server))
-res1 <- paste0(readLines("../tests/regression.txt"), collapse = "\n")
+res1 <- paste0(readLines("../tests/regression_runApp.txt"), collapse = "\n")
 res2 <- paste0(readLines("../tests/regression_correct.txt"), collapse = "\n")
 all.equal(res1,res2)
 
+######################################
 # calling reactives directly doesn't work
+######################################
 ui <- basicPage(
   uiOutput('ui_regression'),
   verbatimTextOutput("test_regression")
@@ -67,7 +112,10 @@ res1 <- paste0(readLines("../tests/regression_reactive.txt"), collapse = "\n")
 res2 <- paste0(readLines("../tests/regression_correct.txt"), collapse = "\n")
 all.equal(res1,res2)
 
+######################################
 # calling reactives directly doesn't work
+# with full ui.R from marketing app
+######################################
 source("global.R", local = TRUE)
 
 # copy-and-paste from inst/marketing/ui.R

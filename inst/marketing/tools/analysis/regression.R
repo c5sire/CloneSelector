@@ -354,7 +354,8 @@ plots_regression <- function(result = .regression()) {
 	if(result$reg_plots == "scatterlist") {
 		plots <- list()
 		for(i in reg_var2) { 
-			if(getdata_class()[i] == 'factor') {
+			# if(getdata_class()[i] == 'factor') {
+			if('factor' %in% class(dat[,i])) {
 				plots[[i]] <- ggplot(dat, aes_string(x=i, y=reg_var1, fill=i)) + geom_boxplot(alpha = .3)
 			} else {
 				plots[[i]] <- ggplot(dat, aes_string(x=i, y=reg_var1)) + geom_point() + geom_smooth(size = .75, linetype = "dotdash")
