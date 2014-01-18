@@ -175,7 +175,13 @@ transform_main <- reactive({
 		dat <- data.frame(dat[, input$tr_columns, drop = FALSE])
 		if(input$tr_transfunction != '') {
 			cn <- c(colnames(dat),paste(input$tr_transfunction,colnames(dat), sep="."))
+
+			# This might work
+			# lapply(dat,function(x) x - mean(x))
+			# cbind(dat,z)
+
 			dat <- cbind(dat,colwise(input$tr_transfunction)(dat))
+
 			colnames(dat) <- cn
 		}
 		if(input$tr_typefunction != '') {
