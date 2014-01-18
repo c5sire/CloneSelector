@@ -60,8 +60,9 @@ output$rmd_knitDoc <- renderUI({
   if(is.null(input$evalRmd) || input$evalRmd == 0) return() 
     isolate({
       if(running_local && input$rmd_report != "")
-      HTML(paste(knit2html(text = input$rmd_report, fragment.only = TRUE, quiet = TRUE, 
-        ), '<script>', 'MathJax.Hub.Typeset();', '</script>', sep = '\n'))
+        return(HTML(paste(knit2html(text = input$rmd_report, fragment.only = TRUE, quiet = TRUE), '<script>', 'MathJax.Hub.Typeset();', '</script>', sep = '\n')))
+      if(!running_local)
+        return(HTML("<h2>Rmd file is not evaluated when running Radiant on a server</h2>"))
     })
 })  
 
@@ -183,9 +184,12 @@ output$rcode <- renderUI({
 
 output$rCodeEval <- renderPrint({
   if(is.null(input$rEval) || input$rEval == 0) return(invisible()) 
-  if(running_local)
+  if(running_local) {
     return(isolate(HTML(knit2html(text = paste0("```{r cache=FALSE}\n",input$r_code,"\n```"),
       fragment.only = TRUE, quiet = TRUE))))
+  } else {
+    return(HTML("<h2>Code is not evaluated when running Radiant on a server</h2>"))
+  }
 })  
 
 output$saveCode <- downloadHandler(
