@@ -15,10 +15,12 @@ if(file.exists("/Users/vnijs/Dropbox/GitHub/radiant")) {
 # options(width = 150, digits = 3, scipen=999)
 options(digits = 3)
 
-setInitValues <- function() {
+setInitValues <- function(reset = TRUE) {
   # initialize state list and reactive values
-  state_list <<- list()
-  values <<- reactiveValues()
+  if(reset) {
+    state_list <<- list()
+    values <<- reactiveValues()
+  }
 
   # initial plot height and width
   values$plotHeight <- 650
