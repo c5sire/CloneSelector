@@ -86,4 +86,4 @@ Choose 'Subset' from the 'Transformation type' dropdown to select (or omit) spec
 14. As date (dmy): R will, by default, read dates as characters. Use this function if the dates are ordered as day-month-year
 15. As date (ymd): R will, by default, read dates as characters. Use this function if the dates are ordered as year-month-day
 
-&copy; Vincent Nijs (2014) <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
+&copy; Vincent Nijs (2014) <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a>

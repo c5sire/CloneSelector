@@ -12,7 +12,8 @@ if(file.exists("/Users/vnijs/Dropbox/GitHub/radiant")) {
   vimKeyBinding <- FALSE
 }
 
-options(width = 150, digits = 3)
+# options(width = 150, digits = 3, scipen=999)
+options(digits = 3)
 
 setInitValues <- function() {
   # initialize state list and reactive values
