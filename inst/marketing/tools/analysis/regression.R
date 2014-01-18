@@ -370,7 +370,8 @@ plots_regression <- function(result = .regression()) {
 		rdat <- data.frame(rdat)
 		colnames(rdat) <- c('residuals',reg_var2)
 		for(i in reg_var2) {
-			if(getdata_class()[i] == 'factor') {
+			# if(getdata_class()[i] == 'factor') {
+			if('factor' %in% class(dat[,i])) {
 				plots[[i]] <- ggplot(rdat, aes_string(x=i, y="residuals")) + geom_boxplot(fill = 'blue', alpha = .3)
 			} else {
 				plots[[i]] <- ggplot(rdat, aes_string(x=i, y="residuals")) + geom_point() + geom_smooth(size = .75, linetype = "dotdash")
