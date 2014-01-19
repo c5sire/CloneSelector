@@ -79,7 +79,7 @@ pmap_plotHeight <- function() {
 }
 
 output$pmap <- renderUI({
-  statTabPanel("Maps","Attribute",".pmap", "pmap", "pmap_plotWidth", "pmap_plotHeight")
+  statTabPanel("Maps","Attributes",".pmap", "pmap", "pmap_plotWidth", "pmap_plotHeight")
 }) 
 
 .pmap <- reactive({
