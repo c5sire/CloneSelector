@@ -12,44 +12,44 @@ if(file.exists("/Users/vnijs/Dropbox/GitHub/radiant")) {
   vimKeyBinding <- FALSE
 }
 
-# options(width = 150, digits = 3, scipen=999)
+testingRadiant <- FALSE
 options(digits = 3)
 
-setInitValues <- function(reset = TRUE) {
+# allowing anyfile size when run locally  
+if(Sys.getenv('SHINY_PORT') == "") {
+  # no limit to filesize locally
+  options(shiny.maxRequestSize=-1)
+  running_local <<- TRUE
+} else {
+  running_local <<- FALSE
+}
+
+setInitValues <- function() {
   # initialize state list and reactive values
-  if(reset) {
+  if(testingRadiant) {
+    # load previous state for testing
+
+  } else {
+
     state_list <<- list()
     values <<- reactiveValues()
-  }
 
-  # initial plot height and width
-  values$plotHeight <- 650
-  values$plotWidth <- 650
+    # initial plot height and width
+    values$plotHeight <- 650
+    values$plotWidth <- 650
 
-  # Datasets can change over time (i.e. the changedata function). Therefore,
-  # the data need to be a reactive value so the other reactive functions
-  # and outputs that depend on these datasets will know when they are changed.
-  robj <- load("data/data_init/diamonds.rda") 
-  df <- get(robj)
-  values[["diamonds"]] <- df
-  values[["diamonds_descr"]] <- attr(df,'description')
-  values$datasetlist <- c("diamonds")
-
-  # allowing anyfile size when run locally  
-  if(Sys.getenv('SHINY_PORT') == "") {
-    # no limit to filesize locally
-    options(shiny.maxRequestSize=-1)
-    running_local <<- TRUE
-  } else {
-    running_local <<- FALSE
+    # Datasets can change over time (i.e. the changedata function). Therefore,
+    # the data need to be a reactive value so the other reactive functions
+    # and outputs that depend on these datasets will know when they are changed.
+    robj <- load("data/data_init/diamonds.rda") 
+    df <- get(robj)
+    values[["diamonds"]] <- df
+    values[["diamonds_descr"]] <- attr(df,'description')
+    values$datasetlist <- c("diamonds")
   }
 }
 
 setInitValues()   # using a function here so it can also be called from state.R to reset the app
-
-
-
-
 
 
 # main install happens through update.R 
