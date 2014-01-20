@@ -42,26 +42,6 @@ res2 <- readPNG("../tests/regression_correct.png")
 all.equal(res1,res2)
 
 
-# Loading previous state from a fixed location
-# observe({
-#   if(is.null(input$loadState) || input$loadState == 0) return()
-
-#   # Joe Cheng: https://github.com/rstudio/shiny/issues/331
-#   if(file.exists("state/RadiantValues.rds")) 
-#     values <<- do.call(reactiveValues, readRDS("state/RadiantValues.rds"))
-
-#   if(file.exists("state/RadiantInputs.rds")) 
-#     state_list <<- readRDS("state/RadiantInputs.rds")
-# })
-
-# Saving current state from a fixed location
-# observe({
-#   if(is.null(input$saveState) || input$saveState == 0) return()
-#   # save app state
-#   saveRDS(isolate(reactiveValuesToList(input)), file = "state/RadiantInputs.rds")
-#   saveRDS(isolate(reactiveValuesToList(values)), file = "state/RadiantValues.rds")
-# })
-
 
 
 ######################################
@@ -307,3 +287,31 @@ server <- function(input, output, session) {
 # app doesn't work when launched using list() in runApp
 runApp(list(ui = ui, server = server))
 
+# trial from R > Code, doesn't work
+updateTabsetPanel(session, "nav_radiant", selected = "Correlation") 
+
+summary_correlation()
+plots_correlation()
+
+updateTabsetPanel(session, "nav_radiant", selected = "Code") 
+
+
+# Loading previous state from a fixed location
+# observe({
+#   if(is.null(input$loadState) || input$loadState == 0) return()
+
+#   # Joe Cheng: https://github.com/rstudio/shiny/issues/331
+#   if(file.exists("state/RadiantValues.rds")) 
+#     values <<- do.call(reactiveValues, readRDS("state/RadiantValues.rds"))
+
+#   if(file.exists("state/RadiantInputs.rds")) 
+#     state_list <<- readRDS("state/RadiantInputs.rds")
+# })
+
+# Saving current state from a fixed location
+# observe({
+#   if(is.null(input$saveState) || input$saveState == 0) return()
+#   # save app state
+#   saveRDS(isolate(reactiveValuesToList(input)), file = "state/RadiantInputs.rds")
+#   saveRDS(isolate(reactiveValuesToList(values)), file = "state/RadiantValues.rds")
+# })
