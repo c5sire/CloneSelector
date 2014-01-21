@@ -1,14 +1,89 @@
+# require(devtools)
+# install_github("RSelenium", "johndharrison")
 require(RSelenium)
-setwd('~/Desktop/test')
+port = 8100
+host = "127.0.0.1"
 
 startServer()
 remDr <- remoteDriver$new()
+Sys.sleep(5) # time for server
 remDr$open()
-remDr$navigate("http://vnijs.rady.ucsd.edu:3838/marketing")
+remDr$navigate(paste0("http://", host, ":", port))
+# remDr$navigate("http://vnijs.rady.ucsd.edu:3838/marketing")
+
+# Next line only needed if nav-bar is collapsed
+# webElem <- remDr$findElement(value = "//*[contains(concat(' ', @class, ' '), ' btn btn-navbar ')]")
+webElem <- remDr$findElements(value = "//*[@id = 'nav_radiant']/li/a")
+tabTitles <- sapply(webElem, function(x){x$getElementText()})
+regressElem <- webElem[[which(tabTitles == 'Regression')]]
+regressElem$clickElement()
+
+webElem <- regressElem$findChildElements(value = "../*[@class = 'dropdown-menu']/*/a")
+subTitles <- sapply(webElem, function(x){x$getElementText()})
+correlationElem <- webElem[[which(subTitles == 'Correlation')]]
+correlationElem$clickElement()
+
+# find variables list for correlation
+webElem <- remDr$findElements(value = "//*[@id = 'cor_var']/option")
+
+# find value options
+selectNames <- sapply(webElem, function(x){x$getElementAttribute('value')})
+
+# select price, cut and color
+lapply(which(selectNames%in%c("price", "cut", "color")), 
+		function(x){ webElem[[x]]$clickElement() })
+
+# finding cor_var  
+# webElem <- remDr$findElements(value = "//*[@id = 'cor_var']/option")
+webElem <- remDr$findElement(using = "id", value = "cor_type")
+
+# # check what is selected as default
+webElem$getElementAttribute("value") # [1] "pearson"
+
+# change cor_type to spearman
+webElem <- remDr$findElement(value = "//option[@value = 'spearman']")
+webElem$clickElement() # app should change to spearman
+
+# change cut-off to .2
+webElem <- remDr$findElement(using = "id", value = "cor_cutoff")
+webElem$getElementAttribute("value") 	# [1] "0"
+webElem$sendKeysToElement(list(value = ".2"))
+
+# getting the output in summary_correlation
+webElem <- remDr$findElements(value = "//*[@id = 'summary_correlation']")
+sum_cor_res <- webElem[[1]]$getElementText()
+sum_cor_res
+
+# Going to the Plots tab
+webElem <- remDr$findElements(value = "//*[@id = 'tabs_correlation']/*/a")
+subTitles <- sapply(webElem, function(x){x$getElementText()})
+plotsElem <- webElem[[which(subTitles == 'Plots')]]
+plotsElem$clickElement()
+
+# Getting image src, width, and height
+webElem <- remDr$findElements(value = "//*[@id = 'plots_correlation']/img")
+webElem[[1]]$getElementAttribute('src')
+webElem[[1]]$getElementAttribute('width')
+webElem[[1]]$getElementAttribute('height')
+
+# Going to Data > View and subsetting
+webElem <- remDr$findElements(value = "//*[@id = 'nav_radiant']/li/a")
+tabTitles <- sapply(webElem, function(x){x$getElementText()})
+dataElem <- webElem[[which(tabTitles == 'Data')]]
+dataElem$clickElement()
+
+# Going to the View tab
+webElem <- remDr$findElements(value = "//*[@id = 'datatabs']/*/a")
+subTitles <- sapply(webElem, function(x){x$getElementText()})
+viewElem <- webElem[[which(subTitles == 'View')]]
+viewElem$clickElement()
+
+webElem <- remDr$findElement(using = "id", value = "view_select")
+webElem$getElementAttribute("value") 	# [1] "0"
+webElem$sendKeysToElement(list(value = "price > 5000"))
+webElem$sendKeysToElement(list(Return = "U+E006"))
 
 
-# close server
-remDr$closeServer()
 
 # John Harrison's example from https://groups.google.com/forum/#!msg/shiny-discuss/CSI9k5leehU/sEwroWNMRf0J
 # startServer()
@@ -36,4 +111,10 @@ remDr$closeServer()
 
 # # close server
 # remDr$closeServer()
+
+
+# remDr$navigate("http://vnijs.rady.ucsd.edu:3838/marketing")
+
+# webElem <- remDr$findElement(value = "//*[contains(concat(' ', @class, ' '), ' btn btn-navbar ')]")
+# webElem$clickElement()
 
