@@ -4,10 +4,16 @@ require(RSelenium)
 port = 8100
 host = "127.0.0.1"
 
+#####################################################################
+# make a list with values and output and save that for comparison
+# using testthat
+#####################################################################
+
 startServer()
 remDr <- remoteDriver$new()
-Sys.sleep(5) # time for server
+Sys.sleep(15) # time for server
 remDr$open()
+Sys.sleep(5) # time for server
 remDr$navigate(paste0("http://", host, ":", port))
 # remDr$navigate("http://vnijs.rady.ucsd.edu:3838/marketing")
 
@@ -18,10 +24,14 @@ tabTitles <- sapply(webElem, function(x){x$getElementText()})
 regressElem <- webElem[[which(tabTitles == 'Regression')]]
 regressElem$clickElement()
 
+Sys.sleep(5) # time for server
+
 webElem <- regressElem$findChildElements(value = "../*[@class = 'dropdown-menu']/*/a")
 subTitles <- sapply(webElem, function(x){x$getElementText()})
 correlationElem <- webElem[[which(subTitles == 'Correlation')]]
 correlationElem$clickElement()
+
+Sys.sleep(5) # time for server
 
 # find variables list for correlation
 webElem <- remDr$findElements(value = "//*[@id = 'cor_var']/option")
@@ -32,6 +42,7 @@ selectNames <- sapply(webElem, function(x){x$getElementAttribute('value')})
 # select price, cut and color
 lapply(which(selectNames%in%c("price", "cut", "color")), 
 		function(x){ webElem[[x]]$clickElement() })
+
 
 # finding cor_var  
 # webElem <- remDr$findElements(value = "//*[@id = 'cor_var']/option")
@@ -80,9 +91,10 @@ viewElem$clickElement()
 
 webElem <- remDr$findElement(using = "id", value = "view_select")
 webElem$getElementAttribute("value") 	# [1] "0"
-webElem$sendKeysToElement(list(value = "price > 5000"))
-webElem$sendKeysToElement(list(Return = "U+E006"))
+webElem$sendKeysToElement(list(value = "price > 5000", key = "enter"))
 
+webElem <- remDr$findElements(value = "//*[@class = 'dataTables_info']")
+nr_obs <- webElem[[1]]$getElementText()
 
 
 # John Harrison's example from https://groups.google.com/forum/#!msg/shiny-discuss/CSI9k5leehU/sEwroWNMRf0J
