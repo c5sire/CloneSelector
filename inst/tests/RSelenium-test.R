@@ -1,5 +1,9 @@
 # require(devtools)
 # install_github("RSelenium", "johndharrison")
+install_github('shiny','rstudio')
+remove.packages('shiny')
+install.packages('shiny')
+shiny::runGitHub("sortable","mostly-harmless")
 require(RSelenium)
 port = 8100
 host = "127.0.0.1"
@@ -8,9 +12,15 @@ host = "127.0.0.1"
 # make a list with values and output and save that for comparison
 # using testthat
 #####################################################################
+# system("R -e \"shiny::runApp('~/radiant/inst/marketing', launch.browser = TRUE, port = 8100)\"")
+
+options(warn=2, error=recover)
+
+shiny::runApp('~/radiant/inst/marketing', launch.browser = TRUE, port = 8100)
 
 startServer()
-remDr <- remoteDriver$new()
+# remDr <- remoteDriver$new()
+remDr <- remoteDriver$new(browserName = 'safari')
 Sys.sleep(15) # time for server
 remDr$open()
 Sys.sleep(5) # time for server

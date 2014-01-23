@@ -3,11 +3,12 @@
 #######################################
 output$ui_Manage <- renderUI({
   list(wellPanel(
-      radioButtons(inputId = "dataType", label = "Load data:", c(".rda" = "rda", ".csv" = "csv", "clipboard" = "clipboard", "examples" = "examples"), selected = ".rda"),
+      radioButtons(inputId = "dataType", label = "Load data:", c(".rda" = "rda", ".csv" = "csv", "clipboard" = "clipboard", "examples" = "examples"), 
+        selected = "rda"),
       conditionalPanel(condition = "input.dataType != 'clipboard' && input.dataType != 'examples'",
         conditionalPanel(condition = "input.dataType == 'csv'",
           checkboxInput('header', 'Header', TRUE),
-          radioButtons('sep', '', c(Comma=',', Semicolon=';', Tab='\t'), 'Comma')
+          radioButtons('sep', '', c(Comma=',', Semicolon=';', Tab='\t'), ',')
         ),
         fileInput('uploadfile', '', multiple=TRUE)
       ),
@@ -19,7 +20,8 @@ output$ui_Manage <- renderUI({
       )
     ),
     wellPanel(
-      radioButtons(inputId = "saveAs", label = "Save data:", c(".rda" = "rda", ".csv" = "csv", "clipboard" = "clipboard"), selected = ".rda"),
+      radioButtons(inputId = "saveAs", label = "Save data:", c(".rda" = "rda", ".csv" = "csv", "clipboard" = "clipboard"), 
+        selected = "rda"),
       checkboxInput("man_add_descr","Add/edit data description", FALSE),
       conditionalPanel(condition = "input.man_add_descr == true",
         actionButton('updateDescr', 'Update description')

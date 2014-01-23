@@ -104,7 +104,7 @@ returnOrder <- function(inputId, vars) {
     singleton(tags$head(tags$script(src = 'js/sort.js'))),
     singleton(includeCSS("www/sort.css")),
     HTML(html_list(vars, inputId)),
-    tags$head(tags$script(paste0("$(function() {$( '#",inputId,"' ).sortable({placeholder: 'ui-state-highlight'}); $( '#",inputId,"' ).disableSelection(); });")))
+    tags$script(paste0("$(function() {$( '#",inputId,"' ).sortable({placeholder: 'ui-state-highlight'}); $( '#",inputId,"' ).disableSelection(); });"))
   )
 }
 
